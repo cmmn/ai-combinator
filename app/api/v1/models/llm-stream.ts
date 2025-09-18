@@ -6,7 +6,7 @@ export async function getLLMStream({
   instructions,
   content,
 }: {
-  provider: 'anthropic' | 'xai' | 'hf'
+  provider: 'anthropic' | 'xai' | 'hf' | 'openai'
   model: string
   instructions: string
   content: string
@@ -79,6 +79,19 @@ export async function getLLMStream({
       } catch (hfError) {
         console.error('HuggingFace streaming error:', hfError)
         throw hfError
+      }
+    } else if (provider === 'openai') {
+      const { openai } = await import('@ai-sdk/openai')
+
+      try {
+        result = await streamText({
+          model: openai(model),
+          system: instructions,
+          prompt: content,
+        })
+      } catch (openaiError) {
+        console.error('OpenAI streaming error:', openaiError)
+        throw openaiError
       }
     } else {
       throw new Error(`Unsupported provider: ${provider}`)

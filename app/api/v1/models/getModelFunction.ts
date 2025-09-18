@@ -3,18 +3,54 @@ import { getLLMStream } from './llm-stream'
 
 // Model configuration mapping
 const modelMap = {
-  'claude-sonnet': {
+  'claude-sonnet-4': {
     provider: 'anthropic' as const,
-    model: 'claude-3-5-sonnet-20241022'
+    model: 'claude-sonnet-4-20250514'
   },
-  'grok': {
+  'claude-3-5-haiku': {
+    provider: 'anthropic' as const,
+    model: 'claude-3-5-haiku-20241022'
+  },
+  'grok-2': {
+    provider: 'xai' as const,
+    model: 'grok-2'
+  },
+  'grok-3': {
+    provider: 'xai' as const,
+    model: 'grok-3'
+  },
+  'grok-4': {
     provider: 'xai' as const,
     model: 'grok-4'
   },
-  'hf': {
+  'mixtral-8x7b-instruct-v0-1': {
     provider: 'hf' as const,
-    model: 'custom'
+    model: 'mixtral-8x7b-instruct-v0.1'
   },
+  'gpt-4o': {
+    provider: 'openai' as const,
+    model: 'gpt-4o'
+  },
+  'gpt-4o-mini': {
+    provider: 'openai' as const,
+    model: 'gpt-4o-mini'
+  },
+  'gpt-4-turbo': {
+    provider: 'openai' as const,
+    model: 'gpt-4-turbo'
+  },
+  'gpt-5': {
+    provider: 'openai' as const,
+    model: 'gpt-5'
+  },
+  'gpt-5-mini': {
+    provider: 'openai' as const,
+    model: 'gpt-5-mini'
+  },
+  'gpt-5-nano': {
+    provider: 'openai' as const,
+    model: 'gpt-5-nano'
+  }
 } as const
 
 export async function getModelFunction({

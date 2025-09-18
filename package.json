@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^2.0.17",
+    "@ai-sdk/openai": "^2.0.32",
     "@ai-sdk/xai": "^2.0.20",
     "@tamagui/config": "^1.132.24",
     "@tamagui/core": "^1.132.24",

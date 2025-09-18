@@ -16,9 +16,17 @@ interface CompletionProps {
 export function Completion({ response }: CompletionProps) {
   const parseMCQResponse = (rawResponse: string): MCQItem[] => {
     try {
-      const parsed = JSON.parse(rawResponse)
+      // Trim whitespace and clean up the response
+      const cleanResponse = rawResponse.trim()
+      console.log('Raw response length:', rawResponse.length)
+      console.log('Clean response:', cleanResponse.substring(0, 200) + '...')
+
+      const parsed = JSON.parse(cleanResponse)
+      console.log('Parsed successfully:', Array.isArray(parsed), parsed.length)
       return Array.isArray(parsed) ? parsed : []
-    } catch {
+    } catch (error) {
+      console.error('JSON parse error:', error)
+      console.log('Failed to parse response:', rawResponse.substring(0, 200) + '...')
       return []
     }
   }
@@ -58,8 +66,8 @@ export function Completion({ response }: CompletionProps) {
           <Accordion.Trigger flexDirection="row" justifyContent="space-between">
             {({ open }: { open: boolean }) => (
               <>
-                <Text color="$color075" fontSize="$2">Completion</Text>
-                <Text color="$color075" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
+                <Text color="$color12" fontSize="$2">Completion</Text>
+                <Text color="$color12" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
                   ▼
                 </Text>
               </>

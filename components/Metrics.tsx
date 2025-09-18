@@ -43,6 +43,9 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
     } else if (dailyRequests <= 200) {
       // High usage: ~6-8 hours active per day = 60-80 hours/month
       return Math.max(50, requestCount * 0.0008)
+    } else if (requestCount >= 10000000) {
+      // 10M+ requests: requires 10-20 instances, ~2500 hours for high volume
+      return 2500
     } else {
       // Very high usage: approaching always-on during business hours
       return Math.min(200, 80 + requestCount * 0.0003)
@@ -90,10 +93,6 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
 
   return (
     <YStack gap="$2" p="$3" bg="$background025" br="$4" w={400}>
-      <Text color="$color" fontSize="$2" fontWeight="bold" textAlign="center">
-        {model.toUpperCase()} Results
-      </Text>
-
       {/* Performance Metrics Accordion */}
       {metrics.timeToFirstToken && metrics.totalTime && metrics.tokenCount && (
         <Accordion type="single" defaultValue="performance-metrics" collapsible>
@@ -101,8 +100,8 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
             <Accordion.Trigger flexDirection="row" justifyContent="space-between">
               {({ open }: { open: boolean }) => (
                 <>
-                  <Text color="$color075" fontSize="$2">Performance Details</Text>
-                  <Text color="$color075" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
+                  <Text color="$color12" fontSize="$2">Performance Details</Text>
+                  <Text color="$color12" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
                     ▼
                   </Text>
                 </>
@@ -175,8 +174,8 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
             <Accordion.Trigger flexDirection="row" justifyContent="space-between">
               {({ open }: { open: boolean }) => (
                 <>
-                  <Text color="$color075" fontSize="$2">Cost Projections</Text>
-                  <Text color="$color075" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
+                  <Text color="$color12" fontSize="$2">Cost Projections</Text>
+                  <Text color="$color12" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
                     ▼
                   </Text>
                 </>
@@ -184,7 +183,7 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
             </Accordion.Trigger>
             <Accordion.Content>
               <YStack gap="$2" pt="$2">
-                {[1000, 10000, 100000, 1000000].map(requestCount => {
+                {[10000, 1000000, 10000000].map(requestCount => {
                   const costs = calculateMonthlyCosts(metrics.cost!, requestCount)
                   return (
                     <YStack key={requestCount} gap="$1">
@@ -195,8 +194,8 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
                         // HF models with hosting costs
                         <>
                           <XStack jc="space-between" pl="$2">
-                            <Text color="$color" fontSize="$1">Total cost:</Text>
-                            <Text color="$color" fontSize="$1">${costs.cost.toFixed(0)}</Text>
+                            <Text color="$color" fontSize="$1">Est. cost:</Text>
+                            <Text color="$color" fontSize="$1">${costs.cost.toLocaleString()}</Text>
                           </XStack>
                           <XStack jc="space-between" pl="$2">
                             <Text color="$color075" fontSize="$1">Est. hosting hours:</Text>
@@ -207,7 +206,7 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
                         // Non-HF models with only transaction costs
                         <XStack jc="space-between" pl="$2">
                           <Text color="$color075" fontSize="$1">Transaction cost:</Text>
-                          <Text color="$color" fontSize="$1">${costs.cost.toFixed(2)}</Text>
+                          <Text color="$color" fontSize="$1">${costs.cost >= 1000 ? costs.cost.toLocaleString() : costs.cost.toFixed(2)}</Text>
                         </XStack>
                       )}
                     </YStack>
@@ -217,10 +216,10 @@ export function Metrics({ metrics, model, isHostedOnHF = false, hourlyCost = 0 }
                 {/* Add notes for HF models */}
                 {isHostedOnHF && (
                   <YStack gap="$1" pt="$3" borderTopWidth="$0.5" borderTopColor="$borderColor">
-                    <Text color="$color075" fontSize="$1" fontStyle="italic">
-                      * Max (always-on): ${(720 * hourlyCost).toFixed(0)}/month for 24/7 availability
+                    <Text color="$blue10" fontSize="$1" fontStyle="italic" fontWeight="500">
+                      * Max: ${(720 * hourlyCost).toFixed(0)}/month for 24/7 availability (720 hours)
                     </Text>
-                    <Text color="$color075" fontSize="$1" fontStyle="italic">
+                    <Text color="$blue10" fontSize="$1" fontStyle="italic" fontWeight="500">
                       * Cold start time: ~60-120 seconds when scaling from zero
                     </Text>
                   </YStack>

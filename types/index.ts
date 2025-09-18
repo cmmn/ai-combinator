@@ -61,7 +61,7 @@ export type AiConfig = {
 
 export type Envs = 'production' | 'preview' | 'requests' | 'errors' | 'logs' | 'rateLimit'
 
-export type Model = 'claude-sonnet' | 'grok' | 'hf'
+export type Model = 'claude-sonnet-4' | 'claude-3-5-haiku' | 'grok-2' | 'grok-3' | 'grok-4' | 'mixtral-8x7b-instruct-v0-1' | 'gpt-4o' | 'gpt-4o-mini' | 'gpt-4-turbo' | 'gpt-5' | 'gpt-5-mini' | 'gpt-5-nano'
 
 export type Action = 'create' | 'update' | 'delete'
 
