@@ -10,7 +10,7 @@ type ModelKey = 'claude-sonnet-4' | 'claude-3-5-haiku' | 'grok-2' | 'grok-3' | '
 type ControllerStep = 'selection' | 'comparison'
 
 interface ModelControllerProps {
-  isAvailable: boolean
+  isAvailable: boolean | null
   onUnavailable: () => void
 }
 

@@ -26,7 +26,7 @@ interface ModelSelectionProps {
   selectedModels: ModelKey[]
   onSelectedModelsChange: (models: ModelKey[]) => void
   onContinue: () => void
-  isAvailable: boolean
+  isAvailable: boolean | null
   onUnavailable: () => void
 }
 

@@ -50,7 +50,7 @@ const useCases: Record<string, UseCase> = {
 
 interface ModelComparisonProps {
   selectedModels: ModelKey[]
-  isAvailable: boolean
+  isAvailable: boolean | null
   onUnavailable: () => void
   onBack: () => void
 }
