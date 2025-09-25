@@ -1,63 +1,25 @@
 'use client'
 
-import { YStack, XStack, Text, H1, Button } from 'tamagui'
+import { YStack, XStack, Text, H2, Button } from 'tamagui'
 import { useState } from 'react'
 import { Completion } from './Completion'
 import { Stream } from './Stream'
 import { Metrics } from './Metrics'
+import { ModelKey, MetricsData, UseCaseContent } from 'types'
+import { modelConfigs } from 'lib'
 
-type ModelKey = 'claude-sonnet-4' | 'claude-3-5-haiku' | 'grok-2' | 'grok-3' | 'grok-4' | 'mixtral-8x7b-instruct-v0-1' | 'gpt-4o' | 'gpt-4o-mini' | 'gpt-4-turbo' | 'gpt-5' | 'gpt-5-mini' | 'gpt-5-nano'
-
-// Model configuration array
-const modelConfigs = {
-  'claude-sonnet-4': { displayName: 'Claude Sonnet 4', envKey: 'ANTHROPIC_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'claude-3-5-haiku': { displayName: 'Claude 3.5 Haiku', envKey: 'ANTHROPIC_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'grok-2': { displayName: 'Grok 2', envKey: 'XAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'grok-3': { displayName: 'Grok 3', envKey: 'XAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'grok-4': { displayName: 'Grok 4', envKey: 'XAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'mixtral-8x7b-instruct-v0-1': { displayName: 'Mixtral 8x7B', envKey: 'HF_API_KEY', isHostedOnHF: true, hourlyCost: 5 },
-  'gpt-4o': { displayName: 'GPT-4o', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'gpt-4o-mini': { displayName: 'GPT-4o Mini', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'gpt-4-turbo': { displayName: 'GPT-4 Turbo', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'gpt-5': { displayName: 'GPT-5', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'gpt-5-mini': { displayName: 'GPT-5 Mini', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 },
-  'gpt-5-nano': { displayName: 'GPT-5 Nano', envKey: 'OPENAI_API_KEY', isHostedOnHF: false, hourlyCost: 0 }
-} as const
-
-interface MetricsData {
-  cost: number | null
-  timeToFirstToken: number | null
-  totalTime: number | null
-  tokenCount: number | null
-}
-
-interface UseCase {
-  action: string
-  target: string
-  length: number
-  content: string
-}
-
-// Use cases configuration
-const useCases: Record<string, UseCase> = {
-  'mcqs-multiplication-10': {
-    action: 'create',
-    target: 'mcqs',
-    length: 10,
-    content: 'multiplication tables 0-100'
-  }
-}
-
-interface ModelComparisonProps {
+export function ModelComparison({
+  selectedModels,
+  isAvailable,
+  onUnavailable,
+  useCaseContent
+}: {
   selectedModels: ModelKey[]
   isAvailable: boolean | null
   onUnavailable: () => void
-  onBack: () => void
-}
-
-export function ModelComparison({ selectedModels, isAvailable, onUnavailable, onBack }: ModelComparisonProps) {
+  useCaseContent: UseCaseContent | null
+}) {
   const allModelKeys = Object.keys(modelConfigs) as ModelKey[]
-
   const [responses, setResponses] = useState<Record<ModelKey, string>>(
     Object.fromEntries(allModelKeys.map(key => [key, ''])) as Record<ModelKey, string>
   )
@@ -70,19 +32,24 @@ export function ModelComparison({ selectedModels, isAvailable, onUnavailable, on
   const [metrics, setMetrics] = useState<Record<ModelKey, MetricsData>>(
     Object.fromEntries(allModelKeys.map(key => [key, { cost: null, timeToFirstToken: null, totalTime: null, tokenCount: null }])) as Record<ModelKey, MetricsData>
   )
-  const [currentUseCase, setCurrentUseCase] = useState<string>('mcqs-multiplication-10')
-  console.log({ setCurrentUseCase})
 
-  // Track if any model is currently streaming
-  const anyStreaming = selectedModels.some(model => streaming[model])
-  // const allCompleted = selectedModels.every(model => responses[model] || errors[model])
 
   // Function to start all selected models simultaneously
   const handleBeginAll = async () => {
+    // Ensure use case content is loaded
+    if (!useCaseContent) {
+      return
+    }
+
     // Start all models in parallel
     const requests = selectedModels.map(model => handleStreamRequest(model))
     await Promise.allSettled(requests)
   }
+  
+  // Track if any model is currently streaming
+  const anyStreaming = selectedModels.some(model => streaming[model])
+  // const allCompleted = selectedModels.every(model => responses[model] || errors[model])
+
 
   function handleDirtyStreamRequest(model: ModelKey, dirtyResponse: string, startTime: number, firstTokenTime: number | null, tokenCount: number) {
     console.log(`[${model}] Processing dirty response`)
@@ -157,17 +124,19 @@ export function ModelComparison({ selectedModels, isAvailable, onUnavailable, on
     }))
 
     try {
-      const useCase = useCases[currentUseCase]
+      
+      if (!useCaseContent) {
+        throw new Error('Failed to load use case content')
+      }
+
       const res = await fetch('/api/v1', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          action: useCase.action,
-          target: useCase.target,
-          length: useCase.length,
-          content: useCase.content,
+          instructions: useCaseContent.instructions,
+          content: useCaseContent.content,
           model: model
         }),
       })
@@ -370,38 +339,30 @@ export function ModelComparison({ selectedModels, isAvailable, onUnavailable, on
   return (
     <YStack
       gap="$5"
-      ai="center"
-      p="$6"
-      width="100%"
-      mx={50}
+      px="$6"
     >
-      <YStack gap="$3" ai="center">
-        <H1 color="$color">
-          A-Combinator
-        </H1>
+      <YStack gap="$3" ai="center">       
 
-        <Text color="$color" textAlign="center" mb="$4" mt={-20}>
-          Compare cost and performance of requests to AI models
-        </Text>
+        {/* Title row - Centered */}
+        <YStack ai="center" gap="$2">
+          <H2 color="$color" textAlign="center">
+            Click and Compare
+          </H2>
+          <Text color="$color" textAlign="center" mb="$4">
+            Cost, performance, and quality of AI models
+          </Text>
+        </YStack>
 
-        <XStack width="100%" ai="center">
+        {/* BEGIN button row - centered and larger */}
+        <XStack width="100%" ai="center" jc="center">
           <Button
-            size="$3"
-            theme="alt2"
-            onPress={onBack}
-            fontWeight="600"
-          >
-            ← Back to Selection
-          </Button>
-
-          <Button
-            size="$4"
+            w={350}
             theme="active"
             onPress={handleBeginAll}
             disabled={anyStreaming || !isAvailable}
             fontWeight="700"
-            minWidth={120}
-            ml="auto"
+            minWidth={180}
+            paddingHorizontal="$6"
           >
             {anyStreaming ? 'RUNNING...' : 'BEGIN'}
           </Button>

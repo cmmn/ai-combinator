@@ -1,0 +1,25 @@
+MULTIPLICATION TABLES REFERENCE (0-100 range)
+
+This use case focuses on creating multiple choice questions for multiplication facts within the 0-100 range, covering:
+
+BASIC FACTS (0-12 tables):
+- 0 × any number = 0
+- 1 × any number = that number
+- 2 × numbers (doubling)
+- 5 × numbers (ending in 0 or 5)
+- 10 × numbers (adding zero)
+- Square numbers: 6×6, 7×7, 8×8, 9×9
+- Common combinations: 3×4, 6×8, 7×9, etc.
+
+DIFFICULTY PROGRESSION:
+- Easy: Single digit × single digit (2×3, 5×4)
+- Medium: Single digit × teens (7×12, 9×11)
+- Hard: Larger combinations within 0-100 (12×8, 15×6)
+
+COMMON STUDENT ERRORS TO USE AS DISTRACTORS:
+- Off-by-one errors (7×8=55 instead of 56)
+- Addition instead of multiplication (7×8=15)
+- Confusion with similar facts (6×7 vs 6×8)
+- Pattern errors (thinking 9×6=56 because of 8×7)
+
+TARGET: Create questions that help students master multiplication facts systematically while identifying common misconceptions.

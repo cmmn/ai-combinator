@@ -1,0 +1,31 @@
+SAMPLE EMAIL REQUIRING RESPONSE:
+
+From: sarah.mitchell@techstartup.com
+To: alex.johnson@consulting.com
+Subject: Q3 Marketing Strategy Review - Urgent
+
+Hi Alex,
+
+I hope you're doing well. I wanted to reach out regarding our Q3 marketing strategy discussion from last week's meeting.
+
+We're facing some challenges with our current approach:
+1. Our conversion rates have dropped 15% compared to Q2
+2. The social media engagement metrics are concerning - down 23% month-over-month
+3. Our CAC (Customer Acquisition Cost) has increased by $47 per customer
+
+I need your team's expertise to help us pivot our strategy before we lose more ground. Specifically, I'm looking for:
+- Analysis of what's not working in our current campaigns
+- Recommendations for immediate tactical changes we can implement
+- A revised budget allocation for the remaining Q3 period
+- Timeline for implementation of new initiatives
+
+Our board meeting is next Friday (Sept 15th), and I'd love to present some concrete solutions. Is it possible to get initial recommendations by Wednesday?
+
+I know this is short notice, but your team's insights have been invaluable in the past. Please let me know if you need any additional data or access to our analytics platforms.
+
+Looking forward to your response.
+
+Best regards,
+Sarah Mitchell
+VP of Marketing
+TechStartup Inc.

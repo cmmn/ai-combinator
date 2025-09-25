@@ -8,18 +8,58 @@ export async function processRequest({
   body: BodyContent
 }) {
   try {
-    // content is the query/subject we will provide to the model
-    const { action, target, content, model, length } = body
+    // Extract and validate required parameters
+    const { instructions, content, model, action, target, length } = body
 
-    console.log('Request received:', { action, target, model, content, length })
+    // Validate required parameters
+    if (!model) {
+      return new Response(
+        JSON.stringify({ error: 'Missing required parameter: model' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
 
-    // and, we need to get the correct system prompt (instructions) based on the action and target
-    const instructions = await generateSystemPrompt({ action, target, length }) as string
+    if (!instructions && !content) {
+      return new Response(
+        JSON.stringify({ error: 'At least one of instructions or content is required' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      )
+    }
+
+
+    console.log('Request received:', {
+      model,
+      contentLength: content?.length || 0,
+      instructionsLength: instructions?.length || 0,
+      hasLegacyParams: !!(action && target)
+    })
+
+    // Use provided instructions or fallback to generated system prompt
+    let systemInstructions: string
+    if (instructions) {
+      systemInstructions = instructions
+    } else {
+      // For legacy format, action and target are required
+      if (!action || !target) {
+        return new Response(
+          JSON.stringify({ error: 'When using legacy format without instructions, action and target are required' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        )
+      }
+      systemInstructions = await generateSystemPrompt({ action, target, length }) as string
+    }
+
+    // Ensure we have content to process
+    const processContent = content || ''
 
     // every model takes the same input,
     // but often in a different format
     // so we need the correct function to call based on the model
-    const streamFunction = await getModelFunction({ model, content, instructions })
+    const streamFunction = await getModelFunction({
+      model,
+      content: processContent,
+      instructions: systemInstructions
+    })
 
     // Call the function and return the streaming Response directly
     return await streamFunction()

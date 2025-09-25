@@ -92,7 +92,7 @@ export function Metrics({ metrics, isHostedOnHF = false, hourlyCost = 0 }: Metri
   const performanceMetrics = calculatePerformanceMetrics()
 
   return (
-    <YStack gap="$2" p="$3" bg="$background025" br="$4" w={400}>
+    <YStack gap="$2" px="$3" bg="$background025" br="$4" w={400}>
       {/* Performance Metrics Accordion */}
       {metrics.timeToFirstToken && metrics.totalTime && metrics.tokenCount && (
         <Accordion type="single" defaultValue="performance-metrics" collapsible>
@@ -132,7 +132,14 @@ export function Metrics({ metrics, isHostedOnHF = false, hourlyCost = 0 }: Metri
                 </XStack>
 
                 <XStack jc="space-between" ai="center">
-                  <Text color="$color075" fontSize="$2">Cost (1K requests):</Text>
+                  <Text color="$color075" fontSize="$2">Cost of this request:</Text>
+                  <Text color="$color" fontSize="$2" fontWeight="500">
+                    {formatCost((metrics.cost as number)/1000)}
+                  </Text>
+                </XStack>
+
+                <XStack jc="space-between" ai="center">
+                  <Text color="$color075" fontSize="$2">Cost per 1K similar requests:</Text>
                   <Text color="$color" fontSize="$2" fontWeight="500">
                     {formatCost(metrics.cost)}
                   </Text>

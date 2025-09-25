@@ -1,0 +1,48 @@
+SURVEY RESPONSES TO ANALYZE:
+
+Survey: Customer Experience Feedback - SaaS Platform
+Question: "What would improve your experience with our platform? Please be specific about any challenges or suggestions."
+Total Responses: 47
+
+RESPONSES:
+1. "The loading times are terrible. Sometimes I wait 30+ seconds for reports to load. It's frustrating when I'm presenting to clients."
+
+2. "Love the functionality but the interface feels outdated. My team struggles with the navigation - too many clicks to get to basic features."
+
+3. "More integrations please! We use Slack and Microsoft Teams heavily. Also need better API documentation."
+
+4. "Customer support is amazing - they always help quickly. But I wish there was more self-service documentation."
+
+5. "Pricing is getting expensive for small teams. Maybe consider a startup discount tier?"
+
+6. "The mobile app is basically unusable. I can't even view reports properly on my phone."
+
+7. "Dashboard customization is limited. I want to create custom views for different team members."
+
+8. "Reports are great but exporting is clunky. Need better Excel/PDF export options."
+
+9. "Onboarding was confusing. Took weeks to get set up properly. Better tutorials needed."
+
+10. "Security features are excellent - that's why we chose you. But multi-factor authentication setup was complicated."
+
+11. "Data visualization tools are powerful but have a steep learning curve. More templates would help."
+
+12. "The search function doesn't work well. Can't find historical data easily."
+
+13. "Collaboration features are lacking. Need better team sharing and commenting capabilities."
+
+14. "Performance has improved over the past year, but still occasional downtime during peak hours."
+
+15. "Would love white-labeling options for client presentations. Current branding limitations are restrictive."
+
+16. "Notifications are too frequent and not customizable enough. Getting spammed with updates I don't need."
+
+17. "The platform does everything we need, but the learning curve is steep for new team members."
+
+18. "Backup and data recovery options aren't clear. Need more transparency about data protection."
+
+19. "Integration with our CRM works well, but setup took IT support 3 days to configure properly."
+
+20. "More automated reporting options. Currently too manual for our workflow needs."
+
+[Additional responses continue with similar themes around performance, usability, integrations, support, and pricing concerns...]

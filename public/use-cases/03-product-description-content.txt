@@ -1,0 +1,41 @@
+PRODUCT INFORMATION TO CONVERT:
+
+Product Name: UltraGrip Pro Wireless Gaming Mouse
+
+RAW SPECIFICATIONS:
+- Model: UGP-2024
+- Sensor: PixArt PMW3395 optical sensor
+- DPI Range: 100-26000 DPI
+- Polling Rate: 1000Hz
+- Connection: 2.4GHz wireless, USB-C charging
+- Battery Life: 120 hours continuous use
+- Weight: 68 grams
+- Dimensions: 128mm x 68mm x 42mm
+- Buttons: 8 programmable buttons
+- RGB Lighting: 16.8 million colors, customizable zones
+- Compatibility: Windows 10/11, macOS, Linux
+- Materials: ABS plastic shell, PTFE feet
+- Warranty: 2 years
+
+TECHNICAL FEATURES:
+- Zero-delay wireless technology
+- Hyper-responsive switches rated for 80 million clicks
+- Ergonomic right-handed design
+- On-the-fly DPI switching (5 preset levels)
+- Drag-and-drop macro programming
+- Low-latency 2.4GHz dongle with USB extension cable
+- Quick-charge: 15 minutes = 24 hours use
+- Memory onboard for settings storage
+
+TARGET CUSTOMERS:
+- Competitive gamers
+- Streaming content creators
+- Professional esports players
+- Gaming enthusiasts
+- Office workers seeking precision
+
+COMPETITIVE CONTEXT:
+- Premium gaming mouse market ($80-120 range)
+- Competing with Logitech G Pro, Razer DeathAdder V3
+- Key differentiators: lightweight design, extended battery life
+- Popular for FPS games, MOBA, and productivity tasks

@@ -35,14 +35,14 @@ export function Completion({ response }: CompletionProps) {
 
   if (mcqs.length === 0) {
     return (
-      <YStack gap="$2" p="$3" bg="$background025" br="$4" w={400}>
+      <YStack gap="$2" px="$3" mt={8} bg="$background025" br="$4" w={400}>
         <Accordion type="single" collapsible>
           <Accordion.Item value="response-content">
             <Accordion.Trigger flexDirection="row" justifyContent="space-between">
               {({ open }: { open: boolean }) => (
                 <>
-                  <Text color="$color075" fontSize="$2">Completions</Text>
-                  <Text color="$color075" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
+                  <Text color="$color12" fontSize="$2">Completions</Text>
+                  <Text color="$color12" fontSize="$2" transform={[{ rotate: open ? '180deg' : '0deg' }]}>
                     ▼
                   </Text>
                 </>

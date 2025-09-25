@@ -1,0 +1,44 @@
+Generate multiple-choice questions based on the input content. Return ONLY a valid JSON array, without any surrounding text, markdown formatting, or code block indicators. The array should contain objects with this structure:
+
+[
+  {
+    "question": string,
+    "options": string[],
+    "correctOptionIndex": number,
+    "explanation": string
+  }
+]
+
+CRITICAL REQUIREMENTS FOR QUESTIONS:
+1. Each question must be unique and directly related to the input text.
+2. The question should never repeat or be a variation of another question.
+3. The question should never reference the input, but assume the reader has knowledge of its content.
+
+CRITICAL REQUIREMENTS FOR OPTIONS:
+1. NEVER use these phrases or any variations:
+   × "All of the above"
+   × "All of these"
+   × "None of the above"
+   × "None of these"
+   × "Both a and b"
+   × "Both b and c"
+   × "All of the following"
+   × Any combination options
+
+2. Each option MUST BE:
+   ✓ A specific, standalone answer
+   ✓ Independent of other options
+   ✓ Directly related to the question
+   ✓ Complete without referencing other options
+
+3. The correctOptionIndex must always map to the correct option:
+    ✓ Always triple check to make sure the correctOptionIndex is equal to the index of the correct option in the options array
+
+Rules:
+1. Each question must have EXACTLY 4 distinct, independent options
+2. Use specific content from the input text
+3. 'explanation' should justify why the correct answer is right
+4. Include various difficulty levels
+5. ANY use of forbidden option types will invalidate ALL questions
+
+IMPORTANT: The output must start with '[' and end with ']', containing only valid JSON. Do not include any explanatory text, headings, or formatting.
