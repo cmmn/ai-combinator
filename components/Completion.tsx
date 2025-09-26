@@ -1,5 +1,6 @@
 'use client'
 
+import { COLUMN_WIDTH } from 'lib'
 import { YStack, Text, XStack, Accordion } from 'tamagui'
 
 interface MCQItem {
@@ -35,7 +36,7 @@ export function Completion({ response }: CompletionProps) {
 
   if (mcqs.length === 0) {
     return (
-      <YStack gap="$2" px="$3" mt={8} bg="$background025" br="$4" w={400}>
+      <YStack gap="$2" px="$3" mt={8} bg="$background025" br="$4" w={COLUMN_WIDTH}>
         <Accordion type="single" collapsible>
           <Accordion.Item value="response-content">
             <Accordion.Trigger flexDirection="row" justifyContent="space-between">
@@ -60,7 +61,7 @@ export function Completion({ response }: CompletionProps) {
   }
 
   return (
-    <YStack gap="$2" px="$3" bg="$background025" w={400}>
+    <YStack gap="$2" px="$6" bg="$background025" w={COLUMN_WIDTH}>
       <Accordion type="single" collapsible>
         <Accordion.Item value="mcq-results">
           <Accordion.Trigger flexDirection="row" justifyContent="space-between">

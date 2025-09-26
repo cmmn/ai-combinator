@@ -2,6 +2,7 @@
 
 import { Text, ScrollView, View } from 'tamagui'
 import { useEffect, useRef } from 'react'
+import { COLUMN_WIDTH } from 'lib'
 
 interface StreamProps {
   response: string
@@ -18,7 +19,7 @@ export function Stream({ response }: StreamProps) {
   }, [response])
 
   return (
-    <View position="relative" w={400} maxHeight={150} bg="$background025" br="$4" mt="$2" overflow="hidden">
+    <View position="relative" w={COLUMN_WIDTH} maxHeight={150} bg="$background025" br="$4" mt="$2" overflow="hidden">
       <ScrollView
         ref={scrollViewRef}
         p="$3"

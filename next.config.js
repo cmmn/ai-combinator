@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
+// eslint-disable-next-line
 const { withTamagui } = require('@tamagui/next-plugin')
-
+// eslint-disable-next-line
 const path = require('path');
 
 const nextConfig = {

@@ -1,5 +1,6 @@
 'use client'
 
+import { COLUMN_WIDTH } from 'lib'
 import { YStack, XStack, Text, Accordion } from 'tamagui'
 
 interface MetricsData {
@@ -92,7 +93,7 @@ export function Metrics({ metrics, isHostedOnHF = false, hourlyCost = 0 }: Metri
   const performanceMetrics = calculatePerformanceMetrics()
 
   return (
-    <YStack gap="$2" px="$3" bg="$background025" br="$4" w={400}>
+    <YStack gap="$2" px="$6" bg="$background025" br="$4" w={COLUMN_WIDTH} mt="$4">
       {/* Performance Metrics Accordion */}
       {metrics.timeToFirstToken && metrics.totalTime && metrics.tokenCount && (
         <Accordion type="single" defaultValue="performance-metrics" collapsible>
